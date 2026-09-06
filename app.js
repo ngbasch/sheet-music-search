@@ -6,12 +6,24 @@ const emptyState = document.getElementById('empty-state');
 const emptyStateText = document.getElementById('empty-state-text');
 const heroSubtitle = document.getElementById('hero-subtitle');
 const typingNotes = document.getElementById('typing-notes');
+const pagination = document.getElementById('pagination');
+const paginationPrev = document.getElementById('pagination-prev');
+const paginationNext = document.getElementById('pagination-next');
+const paginationStatus = document.getElementById('pagination-status');
+
+const SEARCH_QUERY_KEY = 'lastSearchQuery';
+const PAGE_SIZE = 20;
 
 let fuse = null;
+let allEntries = [];
+let browsePage = 0;
+
+searchBox.value = sessionStorage.getItem(SEARCH_QUERY_KEY) || '';
 
 fetch('library/index.json')
   .then((r) => r.json())
   .then((entries) => {
+    allEntries = entries;
     fuse = new Fuse(entries, {
       keys: ['title'],
       threshold: 0.3,
@@ -19,21 +31,48 @@ fetch('library/index.json')
     });
     const bookCount = new Set(entries.map((e) => e.file)).size;
     heroSubtitle.textContent = `A fakebook library · ${entries.length.toLocaleString()} tunes across ${bookCount} fake books.`;
+    runSearch();
   })
   .catch((err) => {
     emptyStateText.textContent = 'Could not load the song index.';
     console.error(err);
   });
 
-function render(matches) {
+function runSearch() {
+  const query = searchBox.value.trim();
+  if (query) {
+    render(fuse.search(query, { limit: 50 }).map((r) => r.item), { paginated: false });
+  } else {
+    browsePage = 0;
+    renderBrowsePage();
+  }
+}
+
+function renderBrowsePage() {
+  const start = browsePage * PAGE_SIZE;
+  render(allEntries.slice(start, start + PAGE_SIZE), { paginated: true });
+}
+
+function render(matches, { paginated }) {
   resultsList.innerHTML = '';
 
   if (!matches.length) {
     emptyStateText.textContent = searchBox.value.trim() ? 'No matches.' : '';
     emptyState.classList.remove('hidden');
+    pagination.classList.add('hidden');
     return;
   }
   emptyState.classList.add('hidden');
+
+  if (paginated && allEntries.length) {
+    const totalPages = Math.ceil(allEntries.length / PAGE_SIZE);
+    pagination.classList.remove('hidden');
+    paginationStatus.textContent = `Page ${browsePage + 1} of ${totalPages}`;
+    paginationPrev.disabled = browsePage === 0;
+    paginationNext.disabled = browsePage >= totalPages - 1;
+  } else {
+    pagination.classList.add('hidden');
+  }
 
   for (const entry of matches) {
     const li = document.createElement('li');
@@ -78,11 +117,23 @@ searchBox.addEventListener('input', () => {
 
   clearTimeout(debounceHandle);
   debounceHandle = setTimeout(() => {
-    const query = searchBox.value.trim();
+    sessionStorage.setItem(SEARCH_QUERY_KEY, searchBox.value.trim());
     if (!fuse) return;
-    const matches = query ? fuse.search(query, { limit: 50 }).map((r) => r.item) : [];
-    render(matches);
+    runSearch();
   }, 100);
+});
+
+paginationPrev.addEventListener('click', () => {
+  if (browsePage === 0) return;
+  browsePage -= 1;
+  renderBrowsePage();
+});
+
+paginationNext.addEventListener('click', () => {
+  const totalPages = Math.ceil(allEntries.length / PAGE_SIZE);
+  if (browsePage >= totalPages - 1) return;
+  browsePage += 1;
+  renderBrowsePage();
 });
 
 if ('serviceWorker' in navigator) {
