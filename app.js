@@ -5,6 +5,7 @@ const resultsList = document.getElementById('results-list');
 const emptyState = document.getElementById('empty-state');
 const emptyStateText = document.getElementById('empty-state-text');
 const heroSubtitle = document.getElementById('hero-subtitle');
+const typingNotes = document.getElementById('typing-notes');
 
 let fuse = null;
 
@@ -69,7 +70,12 @@ function escapeHtml(str) {
 }
 
 let debounceHandle = null;
+let notesTimeoutHandle = null;
 searchBox.addEventListener('input', () => {
+  typingNotes.classList.add('active');
+  clearTimeout(notesTimeoutHandle);
+  notesTimeoutHandle = setTimeout(() => typingNotes.classList.remove('active'), 700);
+
   clearTimeout(debounceHandle);
   debounceHandle = setTimeout(() => {
     const query = searchBox.value.trim();

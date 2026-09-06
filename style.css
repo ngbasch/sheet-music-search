@@ -83,7 +83,7 @@ html, body {
   width: 100%;
   font-size: 17px;
   font-family: inherit;
-  padding: 14px 14px 14px 42px;
+  padding: 14px 54px 14px 42px;
   border-radius: 12px;
   border: none;
   background: #fff;
@@ -98,6 +98,48 @@ html, body {
 
 #search-box:focus {
   outline: 2px solid var(--gold);
+}
+
+#search-box::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+#typing-notes {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+#typing-notes.active {
+  opacity: 1;
+}
+
+#typing-notes svg {
+  width: 13px;
+  height: 13px;
+  fill: var(--gold);
+  stroke: var(--gold);
+}
+
+#typing-notes.active svg {
+  animation: note-bounce 0.6s ease-in-out infinite;
+}
+
+#typing-notes.active svg:nth-child(1) { animation-delay: 0s; }
+#typing-notes.active svg:nth-child(2) { animation-delay: 0.12s; }
+#typing-notes.active svg:nth-child(3) { animation-delay: 0.24s; }
+
+@keyframes note-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 /* Results */
