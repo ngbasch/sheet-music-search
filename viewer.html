@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sheet Music Search — Viewer</title>
+<meta name="theme-color" content="#1f2733">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="viewer-body">
+<div id="viewer-page">
+  <div id="viewer-header">
+    <a id="viewer-back" href="index.html">&larr; Search</a>
+    <span id="viewer-title"></span>
+    <a id="viewer-download" download>Download</a>
+  </div>
+  <div id="viewer-canvas-wrap">
+    <canvas id="viewer-canvas"></canvas>
+    <p id="viewer-status"></p>
+  </div>
+  <div id="viewer-pager">
+    <button id="viewer-prev">&larr; Prev page</button>
+    <span id="viewer-page-label"></span>
+    <button id="viewer-next">Next page &rarr;</button>
+  </div>
+</div>
+
+<script src="viewer.js" type="module"></script>
+</body>
+</html>

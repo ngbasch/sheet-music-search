@@ -5,11 +5,6 @@ const resultsList = document.getElementById('results-list');
 const emptyState = document.getElementById('empty-state');
 const emptyStateText = document.getElementById('empty-state-text');
 const heroSubtitle = document.getElementById('hero-subtitle');
-const viewerOverlay = document.getElementById('viewer-overlay');
-const viewerFrame = document.getElementById('viewer-frame');
-const viewerTitle = document.getElementById('viewer-title');
-const viewerDownload = document.getElementById('viewer-download');
-const viewerBack = document.getElementById('viewer-back');
 
 let fuse = null;
 
@@ -41,15 +36,28 @@ function render(matches) {
 
   for (const entry of matches) {
     const li = document.createElement('li');
-    li.className = 'result';
-    li.innerHTML = `
+    const a = document.createElement('a');
+    a.className = 'result';
+    // Opens in a new window/tab, rendered by our own pdf.js viewer (viewer.html)
+    // rather than an embedded iframe or the browser's native PDF viewer — see
+    // viewer.js for why.
+    const params = new URLSearchParams({
+      file: entry.file,
+      page: String(entry.pdfPage),
+      title: entry.title,
+      book: entry.bookName,
+    });
+    a.href = `viewer.html?${params.toString()}`;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.innerHTML = `
       <span class="result-text">
         <span class="result-title">${escapeHtml(entry.title)}</span>
         <span class="result-book">${escapeHtml(entry.bookName)}</span>
       </span>
       <span class="result-page">p.${entry.page}</span>
     `;
-    li.addEventListener('click', () => openEntry(entry));
+    li.appendChild(a);
     resultsList.appendChild(li);
   }
 }
@@ -59,19 +67,6 @@ function escapeHtml(str) {
   div.textContent = str;
   return div.innerHTML;
 }
-
-function openEntry(entry) {
-  const pdfUrl = `library/${entry.file}#page=${entry.pdfPage}&view=FitH`;
-  viewerTitle.textContent = `${entry.title} — ${entry.bookName}`;
-  viewerDownload.href = `library/${entry.file}`;
-  viewerFrame.src = pdfUrl;
-  viewerOverlay.classList.remove('hidden');
-}
-
-viewerBack.addEventListener('click', () => {
-  viewerOverlay.classList.add('hidden');
-  viewerFrame.src = '';
-});
 
 let debounceHandle = null;
 searchBox.addEventListener('input', () => {

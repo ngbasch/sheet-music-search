@@ -128,6 +128,8 @@ html, body {
   justify-content: space-between;
   gap: 12px;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
@@ -211,18 +213,17 @@ html, body {
   text-decoration: underline;
 }
 
-/* Viewer */
-#viewer-overlay {
-  position: fixed;
-  inset: 0;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  z-index: 10;
+/* Viewer (viewer.html) */
+.viewer-body {
+  margin: 0;
+  background: #3a3a3a;
 }
 
-#viewer-overlay.hidden {
-  display: none;
+#viewer-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh; /* iOS Safari's 100vh includes area hidden behind the toolbar, pushing the pager off-screen */
 }
 
 #viewer-header {
@@ -231,12 +232,13 @@ html, body {
   justify-content: space-between;
   gap: 12px;
   padding: max(12px, env(safe-area-inset-top)) 12px 10px 12px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--navy);
   color: #fff;
+  flex-shrink: 0;
 }
 
-#viewer-header button, #viewer-header a {
+#viewer-header button, #viewer-header a, #viewer-pager button {
   font-size: 15px;
   font-weight: 500;
   color: var(--gold);
@@ -246,6 +248,12 @@ html, body {
   padding: 6px 8px;
   white-space: nowrap;
   cursor: pointer;
+  font-family: inherit;
+}
+
+#viewer-pager button:disabled {
+  color: #8a8a8a;
+  cursor: default;
 }
 
 #viewer-title {
@@ -259,8 +267,43 @@ html, body {
   text-align: center;
 }
 
-#viewer-frame {
+#viewer-canvas-wrap {
   flex: 1;
-  border: none;
-  width: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+}
+
+#viewer-canvas {
+  max-width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+#viewer-status {
+  color: #cfd4dc;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+#viewer-status:empty {
+  display: none;
+}
+
+#viewer-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px max(8px, env(safe-area-inset-bottom)) 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--navy);
+  flex-shrink: 0;
+}
+
+#viewer-page-label {
+  color: #f4f1ea;
+  font-size: 13px;
 }
