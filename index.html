@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sheet Music Search</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Fake Books">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header id="search-header">
+    <h1>Sheet Music Search</h1>
+    <input id="search-box" type="search" placeholder="Search by song title…" autocomplete="off" autocapitalize="off" spellcheck="false">
+  </header>
+
+  <main id="results-pane">
+    <ul id="results-list"></ul>
+    <p id="empty-state">Start typing a song title.</p>
+  </main>
+
+  <div id="viewer-overlay" class="hidden">
+    <div id="viewer-header">
+      <button id="viewer-back">&larr; Back</button>
+      <span id="viewer-title"></span>
+      <a id="viewer-download" download>Download</a>
+    </div>
+    <iframe id="viewer-frame" title="Sheet music viewer"></iframe>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
