@@ -5,23 +5,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sheet Music Search</title>
 <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1f2733">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="Fake Books">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
-  <header id="search-header">
-    <h1>Sheet Music Search</h1>
-    <input id="search-box" type="search" placeholder="Search by song title…" autocomplete="off" autocapitalize="off" spellcheck="false">
+  <header id="hero">
+    <div class="hero-inner">
+      <p class="hero-kicker">Fake Book Library</p>
+      <h1>Sheet Music Search</h1>
+      <p id="hero-subtitle" class="hero-subtitle">Search 3,591 across 11 fake books</p>
+      <div id="search-wrap">
+        <svg id="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        <input id="search-box" type="search" placeholder="Search by song title…" autocomplete="off" autocapitalize="off" spellcheck="false">
+      </div>
+    </div>
   </header>
 
   <main id="results-pane">
     <ul id="results-list"></ul>
-    <p id="empty-state">Start typing a song title.</p>
+    <div id="empty-state">
+      <svg id="empty-state-art" viewBox="0 0 220 130" aria-hidden="true">
+        <g class="staff-lines" stroke="#d8cfc0" stroke-width="1.5">
+          <line x1="10" y1="30" x2="210" y2="30"/>
+          <line x1="10" y1="45" x2="210" y2="45"/>
+          <line x1="10" y1="60" x2="210" y2="60"/>
+          <line x1="10" y1="75" x2="210" y2="75"/>
+          <line x1="10" y1="90" x2="210" y2="90"/>
+        </g>
+        <g fill="none" stroke="#b9812f" stroke-width="3.5" stroke-linecap="round">
+          <line x1="60" y1="82" x2="60" y2="20"/>
+          <line x1="105" y1="90" x2="105" y2="28"/>
+          <line x1="150" y1="75" x2="150" y2="18"/>
+          <path d="M60 20 Q82 12 105 28" />
+          <path d="M105 28 Q128 20 150 18" />
+        </g>
+        <g fill="#b9812f">
+          <ellipse cx="60" cy="82" rx="9" ry="7" transform="rotate(-18 60 82)"/>
+          <ellipse cx="105" cy="90" rx="9" ry="7" transform="rotate(-18 105 90)"/>
+          <ellipse cx="150" cy="75" rx="9" ry="7" transform="rotate(-18 150 75)"/>
+        </g>
+      </svg>
+      <p id="empty-state-text"></p>
+    </div>
   </main>
+
+  <footer id="page-footer">
+    <p><a href="https://github.com/ngbasch/sheet-music-search" target="_blank" rel="noopener">Source on GitHub</a></p>
+  </footer>
 
   <div id="viewer-overlay" class="hidden">
     <div id="viewer-header">

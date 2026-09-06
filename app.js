@@ -3,6 +3,8 @@
 const searchBox = document.getElementById('search-box');
 const resultsList = document.getElementById('results-list');
 const emptyState = document.getElementById('empty-state');
+const emptyStateText = document.getElementById('empty-state-text');
+const heroSubtitle = document.getElementById('hero-subtitle');
 const viewerOverlay = document.getElementById('viewer-overlay');
 const viewerFrame = document.getElementById('viewer-frame');
 const viewerTitle = document.getElementById('viewer-title');
@@ -19,9 +21,11 @@ fetch('library/index.json')
       threshold: 0.3,
       ignoreLocation: true,
     });
+    const bookCount = new Set(entries.map((e) => e.file)).size;
+    heroSubtitle.textContent = `Search ${entries.length.toLocaleString()} tunes across ${bookCount} fake books.`;
   })
   .catch((err) => {
-    emptyState.textContent = 'Could not load the song index.';
+    emptyStateText.textContent = 'Could not load the song index.';
     console.error(err);
   });
 
@@ -29,7 +33,7 @@ function render(matches) {
   resultsList.innerHTML = '';
 
   if (!matches.length) {
-    emptyState.textContent = searchBox.value.trim() ? 'No matches.' : 'Start typing a song title.';
+    emptyStateText.textContent = searchBox.value.trim() ? 'No matches.' : '';
     emptyState.classList.remove('hidden');
     return;
   }
@@ -39,8 +43,11 @@ function render(matches) {
     const li = document.createElement('li');
     li.className = 'result';
     li.innerHTML = `
-      <span class="result-title">${escapeHtml(entry.title)}</span>
-      <span class="result-book">${escapeHtml(entry.bookName)} &middot; p.${entry.page}</span>
+      <span class="result-text">
+        <span class="result-title">${escapeHtml(entry.title)}</span>
+        <span class="result-book">${escapeHtml(entry.bookName)}</span>
+      </span>
+      <span class="result-page">p.${entry.page}</span>
     `;
     li.addEventListener('click', () => openEntry(entry));
     resultsList.appendChild(li);

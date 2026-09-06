@@ -5,7 +5,7 @@
 I have a pile of fake book PDFs and an existing index of what's in them. I want to:
 1. Search for a tune by **song title**.
 2. Tap a result and land directly on that tune, ready to read, on my iPad.
-3. Pay nothing to host it.
+3. Host it on GitHub Pages.
 
 This is *not* an Optical Music Recognition (OMR) project — we're not trying to read notes off the page. It's a searchable card catalog for PDFs you already have. Exactly how a result gets displayed (an embedded PDF jumped to a page, an extracted single-page image, a link that opens the PDF app to the right spot, etc.) is an open question, not a decided detail — pick whatever ends up simplest and most reliable on iPad.
 
@@ -36,12 +36,16 @@ This is a one-time conversion of a fixed personal library, not an ongoing conten
 - **How a result opens:** an `<iframe>` pointed at `library/BOOK.PDF#page=N`, jumped straight to the tune, with a "Download" fallback link and a "Back" button. This was the simplest option and works in desktop/iPad Safari; if it turns out to be unreliable in practice, the per-tune-extracted-page approach from the earlier plan is the fallback.
 
 ### 3. Hosting
-- **GitHub Pages**, free, served straight from this repo (`main` branch, `/` root).
+- **GitHub Pages**, served straight from this repo (`main` branch, `/` root).
 - No backend, no database — `index.json` + static PDFs + `index.html`/`app.js`/`style.css` is the entire app.
 
 ### 4. iPad experience — built
 - `manifest.json` + `sw.js` so Safari's "Add to Home Screen" gives it an app icon (currently a plain placeholder square in `icons/` — swap in a real icon whenever) and caches already-opened PDFs for offline use.
 - Layout tuned for portrait iPad use: large tap targets, search box pinned to top, full-screen PDF viewer.
+
+## Future ideas (not started)
+- **Composer/artist search** — search by composer or artist name, not just title. `INDEXES.PDF` itself doesn't include composer/artist data, so this would need a separate source (composer credits are handwritten on each tune's page in some books, e.g. "H. SILVER", "JACK WALRATH" — could try OCR'ing that corner, or hand-curate/pull from an external tune database).
+- **iReal Pro integration** — sync up with iReal Pro library/playlists to pull in the extra stuff iReal Pro provides that a static PDF can't: play-along backing tracks, on-the-fly transposition, tempo control. Would likely mean parsing iReal Pro's chart format (chord changes as text, not sheet PDFs) and either linking out to the iReal Pro app per-tune or embedding a compatible player.
 
 ## Non-goals (for now)
 - OCR'ing text printed on the page.

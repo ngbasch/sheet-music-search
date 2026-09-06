@@ -1,6 +1,6 @@
 # Sheet Music Search
 
-A free, static website for turning a pile of PDF fake books into a searchable index — built to work well on iPad (add to Home Screen, tap a result, land right on the tune).
+A static website for turning a pile of PDF fake books into a searchable index — built to work well on iPad (add to Home Screen, tap a result, land right on the tune).
 
 **Live site:** https://ngbasch.github.io/sheet-music-search/
 
