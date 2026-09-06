@@ -3,25 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sheet Music Search</title>
+<title>The Changes — A Fakebook Library</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#1f2733">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="Fake Books">
+<meta name="apple-mobile-web-app-title" content="The Changes">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
   <header id="hero">
     <div class="hero-inner">
-      <p class="hero-kicker">Fake Book Library</p>
-      <h1>Sheet Music Search</h1>
-      <p id="hero-subtitle" class="hero-subtitle">Search 3,591 across 11 fake books</p>
+      <div class="brand-lockup">
+        <svg id="brand-mark" viewBox="0 0 60 60" aria-hidden="true">
+          <line x1="21" y1="44" x2="21" y2="10" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="45" y1="48" x2="45" y2="14" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M21 10 L45 14 L45 21 L21 17 Z"/>
+          <circle cx="14" cy="44" r="7.5"/>
+          <circle cx="38" cy="48" r="7.5"/>
+        </svg>
+        <h1>The Changes</h1>
+      </div>
+      <p id="hero-subtitle" class="hero-subtitle">A fakebook library &middot; 3,591 tunes across 11 fake books.</p>
       <div id="search-wrap">
         <svg id="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
         <input id="search-box" type="search" placeholder="Search by song title…" autocomplete="off" autocapitalize="off" spellcheck="false">

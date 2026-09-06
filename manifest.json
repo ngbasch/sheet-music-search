@@ -1,6 +1,6 @@
 {
-  "name": "Sheet Music Search",
-  "short_name": "Fake Books",
+  "name": "The Changes",
+  "short_name": "Changes",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#faf7f2",

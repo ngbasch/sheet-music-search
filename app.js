@@ -18,7 +18,7 @@ fetch('library/index.json')
       ignoreLocation: true,
     });
     const bookCount = new Set(entries.map((e) => e.file)).size;
-    heroSubtitle.textContent = `Search ${entries.length.toLocaleString()} tunes across ${bookCount} fake books.`;
+    heroSubtitle.textContent = `A fakebook library · ${entries.length.toLocaleString()} tunes across ${bookCount} fake books.`;
   })
   .catch((err) => {
     emptyStateText.textContent = 'Could not load the song index.';
