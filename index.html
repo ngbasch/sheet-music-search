@@ -32,13 +32,22 @@
         <h1>The Changes</h1>
       </div>
       <p id="hero-subtitle" class="hero-subtitle">A fakebook library &middot; 3,591 tunes across 11 fake books.</p>
-      <div id="search-wrap">
-        <svg id="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
-        <input id="search-box" type="search" placeholder="Search by song title…" autocomplete="off" autocapitalize="off" spellcheck="false">
-        <div id="typing-notes" aria-hidden="true">
-          <svg viewBox="0 0 20 20"><circle cx="6" cy="14" r="3.4"/><line x1="9.2" y1="14" x2="9.2" y2="2" stroke-width="1.6"/><path d="M9.2 2 L15 5 L15 8 L9.2 5 Z"/></svg>
-          <svg viewBox="0 0 20 20"><circle cx="6" cy="14" r="3.4"/><line x1="9.2" y1="14" x2="9.2" y2="2" stroke-width="1.6"/><path d="M9.2 2 L15 5 L15 8 L9.2 5 Z"/></svg>
-          <svg viewBox="0 0 20 20"><circle cx="6" cy="14" r="3.4"/><line x1="9.2" y1="14" x2="9.2" y2="2" stroke-width="1.6"/><path d="M9.2 2 L15 5 L15 8 L9.2 5 Z"/></svg>
+      <div id="search-row">
+        <div id="search-wrap">
+          <svg id="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+          <input id="search-box" type="search" placeholder="Search by song title…" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <div id="typing-notes" aria-hidden="true">
+            <svg viewBox="0 0 20 20"><circle cx="6" cy="14" r="3.4"/><line x1="9.2" y1="14" x2="9.2" y2="2" stroke-width="1.6"/><path d="M9.2 2 L15 5 L15 8 L9.2 5 Z"/></svg>
+            <svg viewBox="0 0 20 20"><circle cx="6" cy="14" r="3.4"/><line x1="9.2" y1="14" x2="9.2" y2="2" stroke-width="1.6"/><path d="M9.2 2 L15 5 L15 8 L9.2 5 Z"/></svg>
+            <svg viewBox="0 0 20 20"><circle cx="6" cy="14" r="3.4"/><line x1="9.2" y1="14" x2="9.2" y2="2" stroke-width="1.6"/><path d="M9.2 2 L15 5 L15 8 L9.2 5 Z"/></svg>
+          </div>
+        </div>
+        <div id="book-filter-wrap">
+          <button id="book-filter-toggle" type="button" aria-haspopup="listbox" aria-expanded="false">
+            <span id="book-filter-label">All books</span>
+            <svg id="book-filter-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"/></svg>
+          </button>
+          <div id="book-filter-menu" class="hidden" role="listbox" aria-multiselectable="true"></div>
         </div>
       </div>
     </div>

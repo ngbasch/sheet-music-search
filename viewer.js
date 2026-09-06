@@ -94,3 +94,16 @@ viewerNext.addEventListener('click', () => {
 });
 
 init();
+
+// Keep the screen awake while a tune is open; the lock is released by the
+// OS when the tab is hidden, so it's re-requested when the page comes back.
+if ('wakeLock' in navigator) {
+  let wakeLock = null;
+  const requestWakeLock = () => {
+    navigator.wakeLock.request('screen').then((lock) => (wakeLock = lock)).catch(() => {});
+  };
+  requestWakeLock();
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && !wakeLock) requestWakeLock();
+  });
+}
