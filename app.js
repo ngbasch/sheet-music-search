@@ -11,14 +11,11 @@ const paginationPrev = document.getElementById('pagination-prev');
 const paginationNext = document.getElementById('pagination-next');
 const paginationStatus = document.getElementById('pagination-status');
 
-const SEARCH_QUERY_KEY = 'lastSearchQuery';
 const PAGE_SIZE = 20;
 
 let fuse = null;
 let allEntries = [];
 let browsePage = 0;
-
-searchBox.value = sessionStorage.getItem(SEARCH_QUERY_KEY) || '';
 
 fetch('library/index.json')
   .then((r) => r.json())
@@ -117,7 +114,6 @@ searchBox.addEventListener('input', () => {
 
   clearTimeout(debounceHandle);
   debounceHandle = setTimeout(() => {
-    sessionStorage.setItem(SEARCH_QUERY_KEY, searchBox.value.trim());
     if (!fuse) return;
     runSearch();
   }, 100);
