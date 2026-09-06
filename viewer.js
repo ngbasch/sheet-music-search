@@ -10,6 +10,7 @@ const viewerStatus = document.getElementById('viewer-status');
 const viewerPrev = document.getElementById('viewer-prev');
 const viewerNext = document.getElementById('viewer-next');
 const viewerPageLabel = document.getElementById('viewer-page-label');
+const viewerLoading = document.getElementById('viewer-loading');
 
 // We render the target page ourselves with pdf.js instead of relying on the
 // browser's native PDF viewer + a #page=N fragment — iOS Safari's built-in
@@ -36,12 +37,12 @@ async function init() {
 
   viewerTitle.textContent = book ? `${title} — ${book}` : title;
   viewerDownload.href = `library/${file}`;
-  viewerStatus.textContent = 'Loading…';
 
   try {
     currentDoc = await pdfjsLib.getDocument(`library/${file}`).promise;
     await renderPage();
   } catch (err) {
+    viewerLoading.classList.add('hidden');
     viewerStatus.textContent = 'Could not load this PDF.';
     console.error(err);
   }
@@ -50,8 +51,8 @@ async function init() {
 async function renderPage() {
   if (!currentDoc) return;
   const myToken = ++renderToken;
-  viewerStatus.textContent = 'Loading…';
-  viewerCanvas.style.display = 'none';
+  viewerLoading.classList.remove('hidden');
+  viewerCanvas.classList.remove('loaded');
 
   const page = await currentDoc.getPage(currentPageNum);
   if (myToken !== renderToken) return; // a newer render request superseded this one
@@ -70,8 +71,9 @@ async function renderPage() {
   await page.render({ canvasContext: ctx, viewport }).promise;
   if (myToken !== renderToken) return;
 
-  viewerCanvas.style.display = '';
+  viewerLoading.classList.add('hidden');
   viewerStatus.textContent = '';
+  viewerCanvas.classList.add('loaded');
   viewerPageLabel.textContent = `Page ${currentPageNum} of ${currentDoc.numPages}`;
   viewerPrev.disabled = currentPageNum <= 1;
   viewerNext.disabled = currentPageNum >= currentDoc.numPages;

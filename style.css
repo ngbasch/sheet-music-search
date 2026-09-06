@@ -321,6 +321,7 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding: 12px;
 }
 
@@ -328,10 +329,38 @@ html, body {
   max-width: 100%;
   background: #fff;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  transition: opacity 0.35s ease;
 }
 
+#viewer-canvas.loaded {
+  opacity: 1;
+}
+
+#viewer-loading {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+#viewer-loading.hidden {
+  display: none;
+}
+
+#viewer-loading svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--gold);
+  stroke: var(--gold);
+  animation: note-bounce 0.6s ease-in-out infinite;
+}
+
+#viewer-loading svg:nth-child(1) { animation-delay: 0s; }
+#viewer-loading svg:nth-child(2) { animation-delay: 0.12s; }
+#viewer-loading svg:nth-child(3) { animation-delay: 0.24s; }
+
 #viewer-status {
-  color: #cfd4dc;
+  color: #e2b4b0;
   font-size: 14px;
   margin-top: 20px;
 }
